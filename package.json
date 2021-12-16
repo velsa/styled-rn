@@ -1,0 +1,22 @@
+{
+  "name": "styled-rn",
+  "version": "1.0.0",
+  "description": "Styled React Native Components",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/velsa/styled-rn.git"
+  },
+  "keywords": [
+    "styled-components"
+  ],
+  "author": "Vels Lobak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/velsa/styled-rn/issues"
+  },
+  "homepage": "https://github.com/velsa/styled-rn#readme"
+}
