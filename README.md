@@ -30,7 +30,7 @@ npm i styled-rn
 ```
 
 ```ts
-import { styled, ThemedProps } from "styled-rn";
+import { styled } from "styled-rn";
 
 // Basic usage
 export const Container = styled.View({
@@ -51,7 +51,7 @@ export const CoolAndBoldComponent = styled(CoolComponent, {
 You will need to do a few things in order to propagate the `theme` prop into all of your styled components:
 
 1. Wrap your app in `ThemeProvider`
-2. Augment `Theme` type
+2. Augment the `Theme` type
 
 Fist, the wrapping, as usual:
 
@@ -171,12 +171,22 @@ TODO:
   - Add shorthands? (mt, mx, pb, ...)
 - Add typescript tests
 - Add react tests (expect componets with specific styles), test theme nesting, etc...
-- Add more examples: Button (View with Text), Text, Container, TouchableOpacity, etc.
+- Add more examples: Button (View with Text), using functions to generate styles.
+- Add support for presets? I.e. platform independant styles? E.g.:
 
-QUESTION?
+```ts
+elevation: (value) => ({
+      shadowColor: 'black',
+      shadowOffset: { width: 0, height: value },
+      shadowRadius: value * 2.5,
+      shadowOpacity: 0.3,
+      elevation: value,
+      zIndex: value,
+    }),
+```
 
-- Add support for platform specific styles? (shadows, elevation, etc)
-  Or just mention that this can be used (https://www.digitalocean.com/community/tutorials/react-styling-react-native)
-  `...Platform.select({ ios { width: 100 }, android: { width: 75 } })`
-  
+Presets can use Platform, Dimensions, etc..
 
+E.g.: `...Platform.select({ ios { width: 100 }, android: { width: 75 } })`
+
+See example [here](https://www.digitalocean.com/community/tutorials/react-styling-react-native)
