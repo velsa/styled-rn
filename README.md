@@ -48,7 +48,7 @@ export const CoolAndBoldComponent = styled(CoolComponent, {
 
 You will need to do a few things in order to propagate the `theme` prop into all of your styled components:
 
-1. Define your theme and theme type
+1. Define your theme object and the type for it
 2. Augment the `Theme` type
 3. Wrap your app in `ThemeProvider`
 
