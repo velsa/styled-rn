@@ -1,6 +1,6 @@
 # 💄 Styled-RN
 
-The Styled Components for React Native the way they should have been.
+Styled Components for React Native the way they should have been.
 
 Inspired by [this article](https://dev.to/lenilsondc/writing-a-styled-hoc-for-react-native-using-typescript-3i25)
 
