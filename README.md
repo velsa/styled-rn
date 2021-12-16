@@ -21,9 +21,8 @@ Also:
 - `styled-rn` supports custom props, theme via `ThemeProvider`, multiple style objects and more..
 - `styled-rn` has a shorter name ;)
 
-***
 
-## Basic Usage:
+## Usage:
 
 ```
 npm i styled-rn
@@ -44,33 +43,16 @@ export const CoolAndBoldComponent = styled(CoolComponent, {
 });
 ```
 
-***
 
-## Using Theme:
+## Theming:
 
 You will need to do a few things in order to propagate the `theme` prop into all of your styled components:
 
-1. Wrap your app in `ThemeProvider`
+1. Define your theme and theme type
 2. Augment the `Theme` type
+3. Wrap your app in `ThemeProvider`
 
-Fist, the wrapping, as usual:
-
-```tsx
-// App.tsx
-
-import { ThemeProvider } from 'styled-rn';
-import { theme } from './mytheme.ts';
-
-export default function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            { /* your app components */}
-        </ThemeProvider>
-    )
-}
-```
-
-Define your theme:
+First, define your theme:
 ```ts
 // mytheme.ts
 
@@ -96,6 +78,23 @@ declare module 'styled-rn' {
 }
 ```
 
+And finally, the wrapping, as usual:
+
+```tsx
+// App.tsx
+
+import { ThemeProvider } from 'styled-rn';
+import { theme } from './mytheme.ts';
+
+export default function App() {
+    return (
+        <ThemeProvider theme={theme}>
+            { /* your app components */}
+        </ThemeProvider>
+    )
+}
+```
+
 And that's it! You can now access your theme in any styled component:
 
 ```ts
@@ -109,6 +108,7 @@ export const Button = styled.TouchableOpacity(
 If you want to use custom props in your styled component, make sure that your custom props interface extends `ThemedProps`. E.g.
 
 ```ts
+// Important:         ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 interface ButtonProps extends ThemedProps {
   disabled?: boolean;
 }
