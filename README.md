@@ -108,7 +108,7 @@ export const Button = styled.TouchableOpacity(
 If you want to use custom props in your styled component, make sure that your custom props interface extends `ThemedProps`. E.g.
 
 ```ts
-// Important:         ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// Important:         👇
 interface ButtonProps extends ThemedProps {
   disabled?: boolean;
 }
