@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "styled-rn",
+    "slug": "styled-rn",
+    "version": "1.0.0",
+    "description": "Styled React Native Components",
+    "sdkVersion": "43.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
+}
