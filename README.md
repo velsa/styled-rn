@@ -147,46 +147,14 @@ export const MyComponent = () => {
 }
 ```
 
-## Advanced Topics
+## Known Issues
 
-TODO:
-
-- useDebugStyles: per component and globally
-- theme: rootStyles, rootFont, rootBackgroundColor, etc..
-
-## Issues
-
-- BUG: When component returns the style from inline function sometimes the style object has to be type casted to ViewStyle, TextStyle, etc... Otherwise, you'll get a weird TS error. It looks like a TS bug.
-If you don't want to cast your styles, make sure that you pass props to the function and USE THE PROPS in your styles. 
+- When component returns the style from inline function sometimes the style object has to be type casted to ViewStyle, TextStyle, etc... Otherwise, you'll get a weird TS error. It looks like a TS bug. If you don't want to cast your styles, make sure that you pass props to the function and USE THE PROPS in your styles. 
 
 ***
 
-TODO:
+## Contributing
 
-- Feature Compare with:
-  - https://github.com/MrLoh/styled-native-components
-  - https://jacobp100.github.io/cssta/
-  - https://styled-system.com/
-  - Take ideas for features and theming
-  - Add shorthands? (mt, mx, pb, ...)
-- Add typescript tests
-- Add react tests (expect componets with specific styles), test theme nesting, etc...
-- Add more examples: Button (View with Text), using functions to generate styles.
-- Add support for presets? I.e. platform independant styles? E.g.:
+Issues and Pull Requests are always welcome.
 
-```ts
-elevation: (value) => ({
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: value },
-      shadowRadius: value * 2.5,
-      shadowOpacity: 0.3,
-      elevation: value,
-      zIndex: value,
-    }),
-```
 
-Presets can use Platform, Dimensions, etc..
-
-E.g.: `...Platform.select({ ios { width: 100 }, android: { width: 75 } })`
-
-See example [here](https://www.digitalocean.com/community/tutorials/react-styling-react-native)
