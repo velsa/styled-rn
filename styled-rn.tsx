@@ -23,7 +23,8 @@ const defaultDebugStyles: ViewStyle = {
 
 export type DebugStylesProp = boolean | ViewStyle;
 
-export interface StyledOptions {
+export interface StyledOptions<ComponentProps> {
+  attrs?: ComponentProps;
   useDebugStyles?: DebugStylesProp;
   children?: ReactNode | undefined;
 }
@@ -45,7 +46,7 @@ export function styled<
   style:
     | StyledComponentProps['style']
     | ((props: CustomProps) => StyledComponentProps['style']),
-  options?: StyledOptions,
+  options?: StyledOptions<StyledComponentProps>,
 ) {
   const { useDebugStyles } = options || {};
 
@@ -83,7 +84,13 @@ export function styled<
       }
     }
 
-    return <Component {...props} style={newStyles} />;
+    const attrs = options?.attrs || {};
+    const computedProps = {
+      ...(props as Record<string, unknown>),
+      ...attrs,
+    } as StyledComponentProps;
+
+    return <Component {...computedProps} style={newStyles} />;
   };
 }
 
@@ -95,7 +102,7 @@ const makeStyledKey =
     style:
       | StyledComponentProps['style']
       | ((props: CustomProps & ThemedProps) => StyledComponentProps['style']),
-    options?: StyledOptions,
+    options?: StyledOptions<StyledComponentProps>,
   ) =>
     styled(Component, style, options);
 

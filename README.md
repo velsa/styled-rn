@@ -41,6 +41,17 @@ export const Container = styled.View({
 export const CoolAndBoldComponent = styled(CoolComponent, {
   fontWeight: "bold",
 });
+
+// Pass props to the styled component (attrs)
+export const NonWrappingText = styled.Text({
+  color: "blue",
+}, {
+  attrs: {
+    numberOfLines: 1,
+    ellipsizeMode: 'tail',
+  }
+});
+
 ```
 
 
