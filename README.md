@@ -1,3 +1,10 @@
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Npm package total downloads](https://badgen.net/npm/dt/styled-rn)](https://npmjs.com/package/styled-rn)
+[![GitHub forks](https://badgen.net/github/forks/velsa/styled-rn/)](https://GitHub.com/velsa/styled-rn/network/)
+[![GitHub stars](https://badgen.net/github/stars/velsa/styled-rn)](https://GitHub.com/Naereen/velsa/styled-rn/)
+
+[![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/)
+
 # 💄 Styled-RN
 
 Styled Components for React Native the way they should have been.
