@@ -14,7 +14,7 @@
     "styled-components"
   ],
   "author": "Vels Lobak",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/velsa/styled-rn/issues"
   },
