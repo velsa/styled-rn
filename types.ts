@@ -34,17 +34,17 @@ export interface StyledOptions<ComponentProps> {
 
 export type DebugStylesProp = boolean | ViewStyle;
 
-export interface StyleableProps<Component = unknown> {
+export interface ComponentPropsWithStyle<Component = unknown> {
   style?: StyleProp<Component>;
   // children?: ReactNode;
   theme?: Theme;
   ctx?: ThemeContext;
 }
 
-export type ThemedPropsKeys = "theme" | "ctx";
-export type OptionalThemedProps = Pick<StyleableProps, ThemedPropsKeys>;
+export type StyledPropsKeys = "theme" | "ctx";
+export type OptionalStyledProps = Pick<ComponentPropsWithStyle, StyledPropsKeys>;
 
-export type ThemedProps = Required<OptionalThemedProps>;
+export type StyledProps = Required<OptionalStyledProps>;
 
 export interface RootStyles {
   View?: ViewProps["style"] | undefined;

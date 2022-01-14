@@ -1,4 +1,10 @@
-import React, { PropsWithoutRef, PropsWithRef, ReactNode, useContext } from "react";
+import React, {
+  ComponentPropsWithRef,
+  PropsWithoutRef,
+  PropsWithRef,
+  ReactNode,
+  useContext,
+} from "react";
 import {
   FlatList,
   Image,
@@ -18,16 +24,16 @@ import {
 import { postStyles } from "./poststyles";
 import { StyledRNThemeContext } from "./theme";
 import {
-  OptionalThemedProps,
-  StyleableProps,
+  ComponentPropsWithStyle,
+  OptionalStyledProps,
   StyledOptions,
-  ThemedProps,
-  ThemedPropsKeys,
+  StyledProps,
+  StyledPropsKeys,
 } from "./types";
 
 export function styled<
-  CustomProps extends ThemedProps,
-  StyledComponentProps extends StyleableProps
+  CustomProps extends StyledProps,
+  StyledComponentProps extends ComponentPropsWithStyle
 >(
   Component: React.ComponentType<StyledComponentProps>,
   style: StyledComponentProps["style"] | ((props: CustomProps) => StyledComponentProps["style"]),
@@ -37,20 +43,20 @@ export function styled<
 
   // eslint-disable-next-line react/display-name
   return (
-    props: Omit<CustomProps, ThemedPropsKeys> & OptionalThemedProps & StyledComponentProps
+    props: Omit<CustomProps, StyledPropsKeys> & OptionalStyledProps & StyledComponentProps
   ) => {
     const themeContext = useContext(StyledRNThemeContext);
     const theme = themeContext?.theme || {};
     const ctx = themeContext?.ctx || {};
     const root = themeContext?.root;
 
-    const themedProps = {
+    const StyledProps = {
       ...(props as Record<string, unknown>),
       theme,
       ctx,
     } as CustomProps;
 
-    const computedStyles = style instanceof Function ? style(themedProps) : style;
+    const computedStyles = style instanceof Function ? style(StyledProps) : style;
 
     const newStyles = Array.isArray(computedStyles)
       ? [root?.styles, ...computedStyles, props.style]
@@ -62,6 +68,8 @@ export function styled<
       ...(props as Record<string, unknown>),
       ...(attrs || {}),
     } as StyledComponentProps;
+
+    Component.displayName = Component.displayName || Component.name;
 
     if (children) {
       return (
@@ -76,10 +84,10 @@ export function styled<
 }
 
 const makeStyledKey =
-  <StyledComponentProps extends StyleableProps>(
+  <StyledComponentProps extends ComponentPropsWithStyle>(
     Component: React.ComponentType<StyledComponentProps>
   ) =>
-  <CustomProps extends ThemedProps>(
+  <CustomProps extends StyledProps>(
     style: StyledComponentProps["style"] | ((props: CustomProps) => StyledComponentProps["style"]),
     options?: StyledOptions<StyledComponentProps>
   ) =>
@@ -101,7 +109,7 @@ styled.TouchableOpacity = makeStyledKey(TouchableOpacity);
 //     Item: React.ComponentType<ItemProps>
 //   ) =>
 //   <
-//     CustomProps extends ThemedProps,
+//     CustomProps extends StyledProps,
 //     ContainerStyle extends ContainerProps["style"],
 //     ItemStyle extends ItemProps["style"]
 //   >(
@@ -109,8 +117,8 @@ styled.TouchableOpacity = makeStyledKey(TouchableOpacity);
 //       container: containerStyle,
 //       item: itemStyle,
 //     }: {
-//       container: ContainerStyle | ((props: CustomProps & ThemedProps) => ContainerStyle);
-//       item: ItemStyle | ((props: CustomProps & ThemedProps) => ItemStyle);
+//       container: ContainerStyle | ((props: CustomProps & StyledProps) => ContainerStyle);
+//       item: ItemStyle | ((props: CustomProps & StyledProps) => ItemStyle);
 //     },
 //     options?: { container?: StyledOptions<ContainerProps>; item?: StyledOptions<ItemProps> }
 //   ) => {

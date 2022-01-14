@@ -28,11 +28,21 @@ Also:
 - `styled-rn` supports custom props, theme via `ThemeProvider`, multiple style objects and more..
 - `styled-rn` has a shorter name ;)
 
-## Usage:
+## Installing:
 
 ```
 npm i styled-rn
 ```
+
+## Dependencies
+
+Styled-RN depends on [react-native-safe-area-context](https://www.npmjs.com/package/react-native-safe-area-context) to provide insets for the `ctx` prop. See below for more details.
+ 
+```
+npm i react-native-safe-area-context
+```
+
+## Usage:
 
 ```ts
 import { styled } from "styled-rn";
@@ -106,7 +116,11 @@ import { ThemeProvider } from "styled-rn";
 import { theme } from "./mytheme.ts";
 
 export default function App() {
-  return <ThemeProvider theme={theme}>{/* your app components */}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      {/* your app components */}
+    </ThemeProvider>;
+  )
 }
 ```
 
@@ -118,11 +132,11 @@ export const Button = styled.TouchableOpacity(({ theme }) => ({
 }));
 ```
 
-If you want to use custom props in your styled component, make sure that your custom props interface extends `ThemedProps`. E.g.
+If you want to use custom props in your styled component, make sure that your custom props interface extends `StyledProps`. E.g.
 
 ```ts
 // Important:         👇
-interface ButtonProps extends ThemedProps {
+interface ButtonProps extends StyledProps {
   disabled?: boolean;
 }
 
@@ -132,7 +146,7 @@ export const Button = styled.TouchableOpacity(({ disabled, theme }: ButtonProps)
 }));
 
 // Using conditional styles with custom props
-interface SmartComponentProps extends ThemedProps {
+interface SmartComponentProps extends StyledProps {
   active?: boolean;
 }
 export const SmartComponent = styled.TouchableOpacity(({ active, theme }: SmartComponentProps) => [
@@ -154,6 +168,25 @@ import { useTheme } from "styled-rn";
 export const MyComponent = () => {
   const theme = useTheme();
 };
+```
+
+## Context
+
+There is also a special `ctx` prop which you access easily from your styled component. It contains `insets` and `window` objects, which are the values returned by [useSafeAreaInsets()](https://github.com/th3rdwave/react-native-safe-area-context) and [useWindowDimensions()](https://docs.expo.dev/versions/latest/react-native/usewindowdimensions/) respectively.
+
+For example:
+
+```ts
+const TopBackButtonContainer = styled.TouchableOpacity(
+  ({ theme, ctx }) =>
+    ({
+      color: theme.primary,
+      position: "absolute",
+      top: ctx.insets.top || theme.spacing[1],
+      left: 20,
+      zIndex: 10,
+    })
+);
 ```
 
 ## Known Issues

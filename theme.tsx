@@ -1,6 +1,6 @@
 import type { ComponentType, ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
-import { Dimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import {
   useSafeAreaInsets
 } from "react-native-safe-area-context";
@@ -38,7 +38,7 @@ export const ThemeProvider = ({
 }: ThemeProviderProps) => {
   const [currentTheme, setCurrentTheme] = useState<Theme>({ ...theme });
   const insets = useSafeAreaInsets();
-  const window = Dimensions.get("window");
+  const window = useWindowDimensions();
 
   const ctx = {
     insets,
