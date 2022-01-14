@@ -11,7 +11,7 @@ Styled Components for React Native the way they should have been.
 
 Inspired by [this article](https://dev.to/lenilsondc/writing-a-styled-hoc-for-react-native-using-typescript-3i25)
 
-***
+---
 
 ## Intro
 
@@ -27,7 +27,6 @@ Also:
 - `styled-rn` is fully typed and has a nice API
 - `styled-rn` supports custom props, theme via `ThemeProvider`, multiple style objects and more..
 - `styled-rn` has a shorter name ;)
-
 
 ## Usage:
 
@@ -50,17 +49,18 @@ export const CoolAndBoldComponent = styled(CoolComponent, {
 });
 
 // Pass props to the styled component (attrs)
-export const NonWrappingText = styled.Text({
-  color: "blue",
-}, {
-  attrs: {
-    numberOfLines: 1,
-    ellipsizeMode: 'tail',
+export const NonWrappingText = styled.Text(
+  {
+    color: "blue",
+  },
+  {
+    attrs: {
+      numberOfLines: 1,
+      ellipsizeMode: "tail",
+    },
   }
-});
-
+);
 ```
-
 
 ## Theming:
 
@@ -71,6 +71,7 @@ You will need to do a few things in order to propagate the `theme` prop into all
 3. Wrap your app in `ThemeProvider`
 
 First, define your theme:
+
 ```ts
 // mytheme.ts
 
@@ -88,9 +89,9 @@ TODO: add example on how to use multiple themes
 Now you need to augment the default `Theme` type with your own type. In order to do that, create a definitions file at the root of your source tree (e.g. `global.d.ts`) and add the following to it:
 
 ```ts
-import { MyAppTheme } from './mytheme.ts'
+import { MyAppTheme } from "./mytheme.ts";
 
-declare module 'styled-rn' {
+declare module "styled-rn" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Theme extends MyAppTheme {}
 }
@@ -101,26 +102,20 @@ And finally, the wrapping, as usual:
 ```tsx
 // App.tsx
 
-import { ThemeProvider } from 'styled-rn';
-import { theme } from './mytheme.ts';
+import { ThemeProvider } from "styled-rn";
+import { theme } from "./mytheme.ts";
 
 export default function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            { /* your app components */}
-        </ThemeProvider>
-    )
+  return <ThemeProvider theme={theme}>{/* your app components */}</ThemeProvider>;
 }
 ```
 
 And that's it! You can now access your theme in any styled component:
 
 ```ts
-export const Button = styled.TouchableOpacity(
-  ({ theme }) => ({
-    backgroundColor: theme.background,
-  })
-);
+export const Button = styled.TouchableOpacity(({ theme }) => ({
+  backgroundColor: theme.background,
+}));
 ```
 
 If you want to use custom props in your styled component, make sure that your custom props interface extends `ThemedProps`. E.g.
@@ -131,48 +126,42 @@ interface ButtonProps extends ThemedProps {
   disabled?: boolean;
 }
 
-export const Button = styled.TouchableOpacity(
-  ({ disabled, theme }: ButtonProps) => ({
-    opacity: disabled ? 0.3 : 1,
-    backgroundColor: theme.background,
-  })
-);
+export const Button = styled.TouchableOpacity(({ disabled, theme }: ButtonProps) => ({
+  opacity: disabled ? 0.3 : 1,
+  backgroundColor: theme.background,
+}));
 
 // Using conditional styles with custom props
 interface SmartComponentProps extends ThemedProps {
   active?: boolean;
 }
-export const SmartComponent = styled.TouchableOpacity(
-  ({ active, theme }: SmartComponentProps) => [
-    {
-      fontSize: 16,
-    },
-    active && {
-      fontWeight: theme.activeFontWeight,
-      color: theme.activeColor,
-    },
-  ]
-);
+export const SmartComponent = styled.TouchableOpacity(({ active, theme }: SmartComponentProps) => [
+  {
+    fontSize: 16,
+  },
+  active && {
+    fontWeight: theme.activeFontWeight,
+    color: theme.activeColor,
+  },
+]);
 ```
 
-You can also use `theme` in your components by calling the `useTheme()` hook or by wrapping your component with `withTheme()` HOC. 
+You can also use `theme` in your components by calling the `useTheme()` hook or by wrapping your component with `withTheme()` HOC.
 
 ```ts
-import { useTheme } from 'styled-rn';
+import { useTheme } from "styled-rn";
 
 export const MyComponent = () => {
-    const theme = useTheme();
-}
+  const theme = useTheme();
+};
 ```
 
 ## Known Issues
 
-- When component returns the style from inline function sometimes the style object has to be type casted to ViewStyle, TextStyle, etc... Otherwise, you'll get a weird TS error. It looks like a TS bug. If you don't want to cast your styles, make sure that you pass props to the function and USE THE PROPS in your styles. 
+- When component returns the style from inline function sometimes the style object has to be type casted to ViewStyle, TextStyle, etc... Otherwise, you'll get a weird TS error. It looks like a TS bug. If you don't want to cast your styles, make sure that you pass props to the function and USE THE PROPS in your styles.
 
-***
+---
 
 ## Contributing
 
 Issues and Pull Requests are always welcome.
-
-
