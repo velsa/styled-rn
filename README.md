@@ -183,7 +183,7 @@ const TopBackButtonContainer = styled.TouchableOpacity(
       color: theme.primary,
       position: "absolute",
       top: ctx.insets.top || theme.spacing[1],
-      left: 20,
+      left: ctx.insets.left || theme.spacing[2],
       zIndex: 10,
     })
 );
