@@ -9,9 +9,11 @@ import {
   TouchableOpacityProps,
   ViewProps,
   ViewStyle,
+  TextProps,
+  ImageProps
 } from "react-native";
-import { ImageProps, TextProps } from "react-native-elements";
 import { EdgeInsets, SafeAreaViewProps } from "react-native-safe-area-context";
+
 /**
  * The Theme interface can be augmented by users to add types to `styled-rn` default theme
  *
